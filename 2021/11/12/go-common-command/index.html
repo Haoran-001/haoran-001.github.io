@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="haoran" />
+  <meta name="description" content="冲" />
+  
+  
+  <title>
+    
+      Go常用命令整理 
+      
+      
+      |
+    
+     浩然的博客
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/color-scheme.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/comments.css">
+
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">草莓先生</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Go常用命令整理</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2021-11-12 09:27:02
+        </span>
+        
+      </div>
+      <div class="markdown-body">
+        <ul>
+<li>go版本为1.17.3</li>
+</ul>
+<h2 id="设置go语言的国内模块代理"><a href="#设置go语言的国内模块代理" class="headerlink" title="设置go语言的国内模块代理"></a>设置go语言的国内模块代理</h2><ol>
+<li><p>,以七牛云地址为例,将七牛云代理地址写入系统环境变量;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export GO111MODULE=on&quot;</span> &gt;&gt; /etc/bash.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export GOPROXY=https://goproxy.cn&quot;</span> &gt;&gt; /etc/bash.bashrc</span><br></pre></td></tr></table></figure></li>
+<li><p>访问<a href="https//pkg.go.dev">这里</a>查询你需要的go包地址，然后复制好地址, 直接使用go get 包地址下载;</p>
+</li>
+<li><p>从go1.12开始, 使用go.mod来管理模块依赖的问题。所有通过<code>go get</code>命令下载的库都会放在<code>$GOPATH/pkg/mod</code>目录下。然后再当前项目下直接使用<code>go mod init</code>命令初始化即可。这样<code>import</code>导入相关包就不会报错，找不到包了;</p>
+</li>
+</ol>
+<h2 id="go命令"><a href="#go命令" class="headerlink" title="go命令"></a>go命令</h2><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">list</td>
+<td align="center">列出所有go包和模块</td>
+</tr>
+<tr>
+<td align="center">bug</td>
+<td align="center">启动一个bug的报告</td>
+</tr>
+<tr>
+<td align="center">build</td>
+<td align="center">构建包和相关依赖, 如果有main方法，还会生成对应二进制可执行文件</td>
+</tr>
+<tr>
+<td align="center">clean</td>
+<td align="center">移除对象文件和缓存文件</td>
+</tr>
+<tr>
+<td align="center">env</td>
+<td align="center">查看默认go的各个环境变量</td>
+</tr>
+<tr>
+<td align="center">doc</td>
+<td align="center">显示相关包的文档</td>
+</tr>
+<tr>
+<td align="center">fix</td>
+<td align="center">更新包去使用新的API</td>
+</tr>
+<tr>
+<td align="center">fmt</td>
+<td align="center">对go代码进行格式化</td>
+</tr>
+<tr>
+<td align="center">generate</td>
+<td align="center">通过预处理源码来产生go文件</td>
+</tr>
+<tr>
+<td align="center">get</td>
+<td align="center">为当前模块添加依赖包并且安装依赖包</td>
+</tr>
+<tr>
+<td align="center">install</td>
+<td align="center">编译和安装相关的包及其依赖包</td>
+</tr>
+<tr>
+<td align="center">list</td>
+<td align="center">列出当前项目所使用的包或者模块</td>
+</tr>
+<tr>
+<td align="center">mod</td>
+<td align="center">模块维护</td>
+</tr>
+<tr>
+<td align="center">run</td>
+<td align="center">编译并且运行go程序</td>
+</tr>
+<tr>
+<td align="center">test</td>
+<td align="center">测试相关的go包, 编写测试程序文件, 使用go test测试</td>
+</tr>
+<tr>
+<td align="center">tool</td>
+<td align="center">运行指定的go工具</td>
+</tr>
+<tr>
+<td align="center">version</td>
+<td align="center">查看go的版本</td>
+</tr>
+<tr>
+<td align="center">vet</td>
+<td align="center">报告包中可能的错误</td>
+</tr>
+</tbody></table>
+<h2 id="go-env命令"><a href="#go-env命令" class="headerlink" title="go env命令"></a>go env命令</h2><p>这个命令主要用于go语言环境变量的查询和修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询某个go环境变量</span></span><br><span class="line">go <span class="built_in">env</span> | grep 某个go环境变量</span><br><span class="line"><span class="comment"># 修改go环境变量</span></span><br><span class="line">go <span class="built_in">env</span> 某个环境变量的Key=某个环境变量的Value</span><br><span class="line"><span class="comment"># e.g. go env -w GO111MODULE=on</span></span><br><span class="line"><span class="comment"># 也可以通过修改系统环境变量来实现</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="go-get命令-一般是从github或者golang-org下载相应的包"><a href="#go-get命令-一般是从github或者golang-org下载相应的包" class="headerlink" title="go get命令(一般是从github或者golang.org下载相应的包)"></a>go get命令(一般是从github或者golang.org下载相应的包)</h2><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-d</td>
+<td align="center">只更新go.mod文件和下载构建包所需要的源码文件, 不构建和安装包</td>
+</tr>
+<tr>
+<td align="center">-t</td>
+<td align="center">同时下载测试所需要的相关包依赖</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">更新包和依赖相关的包</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示地在终端打印出整个命令执行过程中的输出信息</td>
+</tr>
+</tbody></table>
+<h2 id="go-build命令"><a href="#go-build命令" class="headerlink" title="go build命令"></a>go build命令</h2><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-o</td>
+<td align="center">指定编译输出的名称, 默认为包名</td>
+</tr>
+<tr>
+<td align="center">-a</td>
+<td align="center">强制重新构建已经是最新版本的包</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">编译时打印出包名</td>
+</tr>
+<tr>
+<td align="center">-n</td>
+<td align="center">打印编译时所需要执行的所有命令, 但不执行</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">打印编译时会用到的所有命令</td>
+</tr>
+</tbody></table>
+<h3 id="跨平台编译"><a href="#跨平台编译" class="headerlink" title="跨平台编译"></a>跨平台编译</h3><p>通过修改<code>GOOS</code>, <code>GOARCH</code>, <code>CGO_ENABLED</code> 三个环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GOOS: darwin、freebsd、linux、windows</span><br><span class="line">GOARCH: 386、amd64、arm</span><br><span class="line">CGO_ENABLED: 0 <span class="comment"># (交叉编译不支持, 需关闭)</span></span><br></pre></td></tr></table></figure>
+<p><strong>e.g.:</strong> Debian11编译Windows和Linux</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CGO_ENABLED=0 GOOS=darwin GOARCH=amd64</span><br><span class="line">go build main.go</span><br><span class="line">CGO_ENABLED=0 GOOS=windows GOARCH=amd64 </span><br><span class="line">go build main.go</span><br></pre></td></tr></table></figure>
+
+<h2 id="go-run命令"><a href="#go-run命令" class="headerlink" title="go run命令"></a>go run命令</h2><p>go run 生成可执行程序, 并直接运行, 可执行程序不会在当前目录, 而是在&#x2F;tmp目录下临时生成</p>
+<h2 id="go-install命令"><a href="#go-install命令" class="headerlink" title="go install命令"></a>go install命令</h2><p><code>go install</code>与<code>go build</code>类似, 只是将编译的中间文件放在<code>$GOPATH/pkg</code>目录下，以及固定地将编译结果放在<code>$GOPATH/bin</code>目录下。</p>
+<h2 id="go-test命令"><a href="#go-test命令" class="headerlink" title="go test命令"></a>go test命令</h2><p>自动读取源码目录下名为*_test.go的文件, 并生成运行测试使用的可执行文件</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-bench regexp</td>
+<td align="center">执行相应的benchmarks</td>
+</tr>
+<tr>
+<td align="center">-cover</td>
+<td align="center">开启测试覆盖率</td>
+</tr>
+<tr>
+<td align="center">-run regexp</td>
+<td align="center">只运行regexp匹配的函数, e.g.: -run&#x3D;Array那么执行包含有Array开头的函数</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示测试的详细命令</td>
+</tr>
+</tbody></table>
+<h2 id="go-clean命令"><a href="#go-clean命令" class="headerlink" title="go clean命令"></a>go clean命令</h2><p>默认清除go build,go test,go install以及编译go和c源码文件时遗留在相应目录中的文件或者目录</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-i</td>
+<td align="center">清除go install安装的文件, 包括相关安装的包和可执行程序</td>
+</tr>
+<tr>
+<td align="center">-n</td>
+<td align="center">打印清除时所需要执行的所有命令, 但不执行</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">打印清除时所需要执行的所有命令, 执行</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">递归地清除在import中引入的包</td>
+</tr>
+<tr>
+<td align="center">-cache</td>
+<td align="center">删除全部go build所称生成的缓存</td>
+</tr>
+<tr>
+<td align="center">–testcache</td>
+<td align="center">清除当前包所有测试的缓存</td>
+</tr>
+<tr>
+<td align="center">–modcache</td>
+<td align="center">清除当前包所有模块的缓存</td>
+</tr>
+</tbody></table>
+<h2 id="go-mod命令"><a href="#go-mod命令" class="headerlink" title="go mod命令"></a>go mod命令</h2><p><code>GO111MODULE</code>参数包括<code>on</code>,<code>off</code>,<code>auto</code><br>开启<code>go mod</code>的支持, <code>GO111MODULE=on</code>, 依赖包统一存放在<code>$GOPATH/pkg</code>目录下, 并且允许同一个包多版本共存<br><code>GO111MODULE=off</code>, 依赖包使用<code>Vendor</code>或者<code>GOPATH</code>方式来查找</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">download</td>
+<td align="center">下载模块到本地缓存</td>
+</tr>
+<tr>
+<td align="center">edit</td>
+<td align="center">编辑go.mod文件</td>
+</tr>
+<tr>
+<td align="center">graph</td>
+<td align="center">打印模块依赖图</td>
+</tr>
+<tr>
+<td align="center">init</td>
+<td align="center">在当前目录初始化go.mod</td>
+</tr>
+<tr>
+<td align="center">tidy</td>
+<td align="center">增加缺少的模块, 移除不用的模块</td>
+</tr>
+<tr>
+<td align="center">vendor</td>
+<td align="center">将依赖复制到vendor下</td>
+</tr>
+<tr>
+<td align="center">verify</td>
+<td align="center">验证依赖是否正确</td>
+</tr>
+<tr>
+<td align="center">vhy</td>
+<td align="center">解释为什么需要依赖</td>
+</tr>
+</tbody></table>
+<h2 id="gofmt命令"><a href="#gofmt命令" class="headerlink" title="gofmt命令"></a>gofmt命令</h2><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">cpuprofile</td>
+<td align="center">是否开启 CPU 使用情况记录，并将记录内容保存在此标记值所指的文件中</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">只把改写前后内容的对比信息作为结果打印到标准输出。</td>
+</tr>
+<tr>
+<td align="center">-e</td>
+<td align="center">打印所有的语法错误到标准输出。</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">仅把那些不符合格式化规范的、需要被命令程序改写的源码文件的绝对路径打印到标准输出。</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">添加形如“a[b:len(a)] -&gt; a[b:]”的重写规则。如果我们需要自定义某些额外的格式化规则，就需要用到它。</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">简化文件中的代码</td>
+</tr>
+<tr>
+<td align="center">-w</td>
+<td align="center">把改写后的内容直接写入到文件中，而不是作为结果打印到标准输出</td>
+</tr>
+</tbody></table>
+<p><code>go fmt</code>是对gofmt命令行程序的封装</p>
+<p>参考教程:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://goproxy.cn/">https://goproxy.cn/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kancloud.cn/cattong/go_command_tutorial/261347">https://www.kancloud.cn/cattong/go_command_tutorial/261347</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lsdcloud.com/go/middleware/go-build.html">https://www.lsdcloud.com/go/middleware/go-build.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903798658301960">https://juejin.cn/post/6844903798658301960</a></li>
+<li><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/124.html">http://c.biancheng.net/view/124.html</a></li>
+</ol>
+<p>感谢，笔芯…</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/11/08/go-env-conf/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2021-11-12 09:27:02
+            </span>
+            
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2022/05/08/linear-regression/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEgo%E8%AF%AD%E8%A8%80%E7%9A%84%E5%9B%BD%E5%86%85%E6%A8%A1%E5%9D%97%E4%BB%A3%E7%90%86"><span class="toc-text">设置go语言的国内模块代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go%E5%91%BD%E4%BB%A4"><span class="toc-text">go命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-env%E5%91%BD%E4%BB%A4"><span class="toc-text">go env命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-get%E5%91%BD%E4%BB%A4-%E4%B8%80%E8%88%AC%E6%98%AF%E4%BB%8Egithub%E6%88%96%E8%80%85golang-org%E4%B8%8B%E8%BD%BD%E7%9B%B8%E5%BA%94%E7%9A%84%E5%8C%85"><span class="toc-text">go get命令(一般是从github或者golang.org下载相应的包)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-build%E5%91%BD%E4%BB%A4"><span class="toc-text">go build命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91"><span class="toc-text">跨平台编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-run%E5%91%BD%E4%BB%A4"><span class="toc-text">go run命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-install%E5%91%BD%E4%BB%A4"><span class="toc-text">go install命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-test%E5%91%BD%E4%BB%A4"><span class="toc-text">go test命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-clean%E5%91%BD%E4%BB%A4"><span class="toc-text">go clean命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go-mod%E5%91%BD%E4%BB%A4"><span class="toc-text">go mod命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gofmt%E5%91%BD%E4%BB%A4"><span class="toc-text">gofmt命令</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2022 Strawberry</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Go%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86 + '&url=' + http%3A%2F%2Fexample.com%2F2021%2F11%2F12%2Fgo-common-command%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2021/11/12/go-common-command/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
