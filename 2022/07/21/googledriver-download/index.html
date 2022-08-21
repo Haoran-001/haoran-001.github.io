@@ -166,12 +166,27 @@
       <div class="markdown-body">
         <h2 id="谷歌网盘下载大文件"><a href="#谷歌网盘下载大文件" class="headerlink" title="谷歌网盘下载大文件"></a>谷歌网盘下载大文件</h2><p>做实验经常需要从谷歌网盘下载动辄几十G的大数据集，直接使用浏览器下载又特别的慢，而且很容易中途连接断开，导致下载失败。可以使用Google Driver 相应的API下载</p>
 <h3 id="1-第一步"><a href="#1-第一步" class="headerlink" title="1. 第一步"></a>1. 第一步</h3><p>获取需要下载的文件id, 一般位于<code>/d/</code>后面, 如<code>https://drive.google.com/file/d/157W0qYR2yQAc5qKmXlZuHms66wmUM8Hi/view?usp=sharing</code> 这里文件id为<code>157W0qYR2yQAc5qKmXlZuHms66wmUM8Hi</code>;</p>
-<h3 id="2-第二步"><a href="#2-第二步" class="headerlink" title="2. 第二步"></a>2. 第二步</h3><p>使用google账号访问<a target="_blank" rel="noopener" href="https://developers.google.com/oauthplayground/">OAuth Token Playground</a>, 如下图所示。选择<code>Drive API v3</code>的<code>drive.readonly</code>选项并授权API;<br><img src="/.com//step2_1.PNG" alt="img1"><br><img src="/.com//step2_2.PNG" alt="img2"></p>
-<h3 id="3-第三步"><a href="#3-第三步" class="headerlink" title="3. 第三步"></a>3. 第三步</h3><p>google会提示获取你的授权，点击确定即可。<br><img src="/.com//step3_1.PNG" alt="img3"><br><img src="/.com//step3_2.PNG" alt="img4"></p>
-<h3 id="4-第四步"><a href="#4-第四步" class="headerlink" title="4. 第四步"></a>4. 第四步</h3><p>点击交换授权码用于获取token, 获取到access_token。<br><img src="/.com//step4_1.PNG" alt="img4"><br><img src="/.com//step4_2.PNG" alt="img4"></p>
+<h3 id="2-第二步"><a href="#2-第二步" class="headerlink" title="2. 第二步"></a>2. 第二步</h3><p>使用google账号访问<a target="_blank" rel="noopener" href="https://developers.google.com/oauthplayground/">OAuth Token Playground</a>, 如下图所示。选择<code>Drive API v3</code>的<code>drive.readonly</code>选项并授权API;</p>
+<img src="/2022/07/21/googledriver-download/step2_1.PNG" class>
+<img src="/2022/07/21/googledriver-download/step2_2.PNG" class>
+
+<h3 id="3-第三步"><a href="#3-第三步" class="headerlink" title="3. 第三步"></a>3. 第三步</h3><p>google会提示获取你的授权，点击确定即可。</p>
+<img src="/2022/07/21/googledriver-download/step3_1.PNG" class>
+<img src="/2022/07/21/googledriver-download/step3_2.PNG" class>
+
+<h3 id="4-第四步"><a href="#4-第四步" class="headerlink" title="4. 第四步"></a>4. 第四步</h3><p>点击交换授权码用于获取token, 获取到access_token。</p>
+<img src="/2022/07/21/googledriver-download/step4_1.PNG" class>
+<img src="/2022/07/21/googledriver-download/step4_2.PNG" class>
+
 <h3 id="5-第五步"><a href="#5-第五步" class="headerlink" title="5. 第五步"></a>5. 第五步</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Linux/OSX 用户</span></span><br><span class="line">curl -H “Authorization: Bearer $access_token” https://www.googleapis.com/drive/v3/files/$file_id?alt=media -o $output_file</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">window 用户 (需要在PowerShell中使用, cmd不可以)</span></span><br><span class="line">Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/%file_id%?alt=media -Method Get -Headers @&#123;“Authorization”=”Bearer %access_token%”&#125; -OutFile %output_file%</span><br></pre></td></tr></table></figure>
 
 <h3 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h3><p>使用<code>pip</code>安装<code>gdown</code>, 使用<code>gdown</code>下载也可以，速度也很快。</p>
+<p>参考教程:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.quora.com/How-do-I-download-a-very-large-file-from-Google-Drive">https://www.quora.com/How-do-I-download-a-very-large-file-from-Google-Drive</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/25010369/wget-curl-large-file-from-google-drive">https://stackoverflow.com/questions/25010369/wget-curl-large-file-from-google-drive</a></li>
+</ol>
+<p>感谢，笔芯…</p>
 
       </div>
       
@@ -255,7 +270,7 @@
     
     <div class="footer-more">
       
-        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Strawberry | Powered by Hexo</a>
         
     </div>
   
